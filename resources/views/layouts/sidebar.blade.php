@@ -1,71 +1,193 @@
-<aside id="sidebar" class="sidebar">
-    <ul class="sidebar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="/dashboard">
-                <i class="bi bi-house-door"></i>
-                <span>Dashboard</span>
-            </a>
-        </li>
-        
-        @if(auth()->user()->role == 'masyarakat')
-        <li class="nav-item">
-            <a class="nav-link" href="/ajukan-surat">
-                <i class="bi bi-file-earmark-text"></i>
-                <span>Pengajuan Surat</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/riwayat">
-                <i class="bi bi-clock-history"></i>
-                <span>Riwayat Pengajuan</span>
-            </a>
-        </li>
+        @if (auth()->user()->role == 'admin')
+            <div class="sidebar sidebar-style-2" data-background-color="dark">
+                <div class="sidebar-logo">
+                    <!-- Logo Header -->
+                    <div class="logo-header" data-background-color="dark">
+                        <a href="index.html" class="logo">
+                            {{-- <img src="{{ asset('assets/img/kaiadmin/logo_light.svg') }}" alt="navbar brand"
+                                class="navbar-brand" height="20" /> --}}
+                        </a>
+                        <button class="topbar-toggler more">
+                            <i class="gg-more-vertical-alt"></i>
+                        </button>
+                    </div>
+                    <!-- End Logo Header -->
+                </div>
+                <div class="sidebar-wrapper scrollbar scrollbar-inner">
+                    <div class="sidebar-content">
+                        <ul class="nav nav-secondary">
+                            <li class="nav-item ">
+                                <a href="/dashboard" class="nav-link" aria-expanded="false">
+                                    <i class="fas fa-home"></i>
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="nav-section">
+                                <span class="sidebar-mini-icon">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </span>
+                                <h4 class="text-section">Components</h4>
+                            </li>
+
+                            <li class="nav-item {{ Request::is('admin/pengajuan-surat') ? 'active' : '' }}">
+                                <a href="/admin/pengajuan-surat">
+                                    <i class="fas fa-file-alt"></i>
+                                    <p>Data Pengajuan Surat</p>
+                                </a>
+
+                            </li>
+
+                            <li class="nav-item {{ Request::is('dokumen') ? 'active' : '' }}">
+                                <a href="/dokumen">
+                                    <i class="fas fa-file-import"></i>
+                                    <p>Dokumen Pengajuan</p>
+                                </a>
+
+                            </li>
+                            <li class="nav-item {{ Request::is('tampil-surat') ? 'active' : '' }}">
+                                <a href="/tampil-surat">
+                                    <i class="fas fa-file"></i>
+                                    <p>Jenis Surat</p>
+                                </a>
+
+                            </li>
+                            <li class="nav-item {{ Request::is('users') ? 'active' : '' }}">
+                                <a href="/users">
+                                    <i class="fas fa-user-alt"></i>
+                                    <p>Manajemen Pengguna</p>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Request::is('profile') ? 'active' : '' }}">
+                                <a href="/profile">
+                                    <i class="fas fa-user-edit"></i>
+                                    <p>Edit Profil</p>
+                                </a>
+                            </li>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        @endif
+        @if ( auth()->user()->role == 'kepala_desa' ||
+                auth()->user()->role == 'sekretaris_desa')
+            <div class="sidebar sidebar-style-2" data-background-color="dark">
+                <div class="sidebar-logo">
+                    <!-- Logo Header -->
+                    <div class="logo-header" data-background-color="dark">
+                        <a href="index.html" class="logo">
+                            {{-- <img src="{{ asset('assets/img/kaiadmin/logo_light.svg') }}" alt="navbar brand"
+                                class="navbar-brand" height="20" /> --}}
+                        </a>
+                        <button class="topbar-toggler more">
+                            <i class="gg-more-vertical-alt"></i>
+                        </button>
+                    </div>
+                    <!-- End Logo Header -->
+                </div>
+                <div class="sidebar-wrapper scrollbar scrollbar-inner">
+                    <div class="sidebar-content">
+                        <ul class="nav nav-secondary">
+                            <li class="nav-item ">
+                                <a href="/dashboard" class="nav-link" aria-expanded="false">
+                                    <i class="fas fa-home"></i>
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="nav-section">
+                                <span class="sidebar-mini-icon">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </span>
+                                <h4 class="text-section">Components</h4>
+                            </li>
+                            <li class="nav-item {{ Request::is('/pengajuan-surat/kadsek') ? 'active' : '' }}">
+                                <a href="/pengajuan-surat/kadsek">
+                                    <i class="fas fa-file-alt"></i>
+                                    <p>Data Pengajuan Surat</p>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Request::is('tampil-surat') ? 'active' : '' }}">
+                                <a href="/tampil-surat">
+                                    <i class="fas fa-file"></i>
+                                    <p>Jenis Surat</p>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Request::is('profile') ? 'active' : '' }}">
+                                <a href="/profile">
+                                    <i class="fas fa-user-edit"></i>
+                                    <p>Edit Profil</p>
+                                </a>
+                            </li>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         @endif
 
-        @if(auth()->user()->role == 'admin' || auth()->user()->role == 'kepala_desa' || auth()->user()->role == 'sekretaris_desa')
-        <li class="nav-item">
-            <a class="nav-link" href="/admin/pengajuan-surat">
-                <i class="bi bi-envelope"></i>
-                <span>Pengajuan Surat</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/dokumen">
-                <i class="bi bi-archive"></i>
-                <span>Dokumen Pengajuan</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/tampil-surat">
-                <i class="bi bi-tag"></i>
-                <span>Jenis Surat</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/laporan">
-                <i class="bi bi-clipboard-data"></i>
-                <span>Laporan</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/users">
-                <i class="bi bi-people"></i>
-                <span>Manajemen Pengguna</span>
-            </a>
-        </li>
+        @if (auth()->user()->role == 'masyarakat')
+            <div class="sidebar sidebar-style-2" data-background-color="dark">
+                <div class="sidebar-logo">
+                    <!-- Logo Header -->
+                    <div class="logo-header" data-background-color="dark">
+                        <a href="index.html" class="logo">
+                            {{-- <img src="{{ asset('assets/img/kaiadmin/logo_light.svg') }}" alt="navbar brand"
+                                class="navbar-brand" height="20" /> --}}
+                        </a>
+                        <button class="topbar-toggler more">
+                            <i class="gg-more-vertical-alt"></i>
+                        </button>
+                    </div>
+                    <!-- End Logo Header -->
+                </div>
+                <div class="sidebar-wrapper scrollbar scrollbar-inner">
+                    <div class="sidebar-content">
+                        <ul class="nav nav-secondary">
+                            <li class="nav-item ">
+                                <a href="/userdashboard" class="nav-link" aria-expanded="false">
+                                    <i class="fas fa-home"></i>
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="nav-section">
+                                <span class="sidebar-mini-icon">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </span>
+                                <h4 class="text-section">Components</h4>
+                            </li>
+                            <li class="nav-item {{ Request::is('ajukan-surat') ? 'active' : '' }}">
+                                <a href="/ajukan-surat">
+                                    <i class="fas fa-file-signature"></i>
+                                    <p>Pengajuan Surat</p>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Request::is('tampil-surat*') ? 'active' : '' }}">
+                                <a href="{{ route('surat.index') }}">
+                                    <i class="fas fa-file"></i>
+                                    <p>Jenis Surat</p>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Request::is('riwayat') ? 'active' : '' }}">
+                                <a href="/riwayat">
+                                    <i class="fas fa-file-contract"></i>
+                                    <p>Riwayat Pengajuan Surat</p>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Request::is('biodata') ? 'active' : '' }}">
+                                <a href="/biodata">
+                                    <i class="fas fa-address-card"></i>
+                                    <p>Biodata</p>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Request::is('profile') ? 'active' : '' }}">
+                                <a href="/profile">
+                                    <i class="fas fa-user-edit"></i>
+                                    <p>Edit Profil</p>
+                                </a>
+                            </li>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         @endif
-
-        @if(Auth::check())
-        <li class="nav-item">
-            <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Logout</span>
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-                <button type="submit" class="btn btn-danger">Logout</button>
-            </form>
-        </li>
-        @endif
-    </ul>
-</aside>

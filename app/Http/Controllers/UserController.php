@@ -8,10 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('admin');
-    }
+    
     /**
      * Display a listing of the resource.
      */
@@ -20,6 +17,42 @@ class UserController extends Controller
         $users = User::all();
         return view('users.index', compact('users'));
     }
+
+    public function profile()
+    {
+        $users = User::all();
+        return view('profile.index', compact('users'));
+    }
+
+    public function updateProfile(Request $request)
+{
+    $user = auth()->user();
+
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $user->id,
+        'password' => 'nullable|string|min:8|confirmed', 
+    ],[
+        'name.required' => 'Nama lengkap wajib diisi.',
+        'email.required' => 'Email wajib diisi.',
+        'email.email' => 'Format email tidak valid.',
+        'email.unique' => 'Email sudah digunakan.',
+        'password.min' => 'Password minimal 8 karakter.',
+        'password.confirmed' => 'Konfirmasi password tidak cocok.',
+    ]);
+
+    $user->name = $validated['name'];
+    $user->email = $validated['email'];
+
+    if (!empty($validated['password'])) {
+        $user->password = bcrypt($validated['password']);
+    }
+
+    $user->save();
+
+    return redirect()->back()->with('success', 'Profil berhasil diperbarui.');
+}
+
 
     /**
      * Show the form for creating a new resource.

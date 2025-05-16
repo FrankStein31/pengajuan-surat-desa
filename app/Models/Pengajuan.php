@@ -11,7 +11,7 @@ use App\Models\Lampiran;
 class Pengajuan extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'jenis_surat_id', 'status'];
+    protected $fillable = ['user_id', 'jenis_surat_id', 'status', 'keperluan', 'keterangan'];
 
     public function dokumen()
     {

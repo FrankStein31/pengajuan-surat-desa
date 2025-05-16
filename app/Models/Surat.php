@@ -15,7 +15,7 @@ class Surat extends Model
     protected $fillable = [
         'jenis_surat',
         'deskripsi_surat',
-        // 'syarat_surat'
+        'kategori',
     ];
 
     // public function pengajuan(): HasMany
@@ -27,6 +27,7 @@ class Surat extends Model
     {
         return $this->belongsToMany(Dokumen::class, 'jenis_surat_dokumen', 'jenis_surat_id', 'dokumen_id');
     }
+
 
     public function pengajuans()
     {

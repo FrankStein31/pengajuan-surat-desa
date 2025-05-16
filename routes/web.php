@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BiodataController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SuratController;
@@ -8,94 +9,93 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\PengajuanSuratController;
+use App\Http\Controllers\LampiranController;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 
+// Halaman awal (sementara diarahkan ke view 'test')
 Route::get('/', function () {
-    return view('welcome');
+    return view('test');
 });
-//auth default laravel
+
+// --------------------------------------
+// Autentikasi
+// --------------------------------------
 Auth::routes();
 
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/userdashboard', [DashboardController::class, 'indexuser'])->name('userdashboard');
+
+
+
+Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'create'])->name('register.post');
+// --------------------------------------
+// Dashboard
+// --------------------------------------
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware('auth')
     ->name('dashboard');
 
-// Route::middleware(['auth'])->group(function() {
-//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-// });
+// --------------------------------------
+// Manajemen User
+// --------------------------------------
+Route::middleware('auth')->group(function () {
+    Route::resource('users', UserController::class)->except(['show']);
 
-// Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
+});
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+// --------------------------------------
+// Jenis Surat
+// --------------------------------------
 
-Route::post('/logout', function (){
-    Auth::logout();
-    return redirect('/login');
-})->name('logout');
+Route::get('/pengajuan/{id}/cetak', [SuratController::class, 'cetak'])->name('pengajuan.cetak');
+// --------------------------------------
+// Pengajuan Surat (User)
+//—--------------------------------------
+Route::middleware('auth')->group(function () {
 
-// Route::resource('surat', SuratController::class);
 
-// // CRUD Manajemen User
-Route::resource('users', UserController::class)->middleware('auth');
-
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
-Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
-Route::post('/users', [UserController::class, 'store'])->name('users.store');
-Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
-Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-
-// Halaman daftar pengguna (hanya admin yang bisa mengakses)
-// Route::middleware(['auth', 'role:admin'])->group(function () {
-//     Route::get('/users', [UserController::class, 'index'])->name('users.index');
-//     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
-//     Route::post('/users', [UserController::class, 'store'])->name('users.store');
-//     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-//     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
-//     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-// });
-
-// CRUD SURAT (Jenis Surat)
-// Route untuk menampilkan daftar surat
-Route::get('/tampil-surat', [SuratController::class, 'index'])->name('surat.index');
-
-// Route untuk menampilkan form tambah surat
+    Route::get('/tampil-surat', [SuratController::class, 'index'])->name('surat.index');
 Route::get('/surat/create', [SuratController::class, 'create'])->name('surat.create');
-
-// Route untuk menyimpan surat baru
 Route::post('/surat/store', [SuratController::class, 'store'])->name('surat.store');
-
-// Route untuk menampilkan form edit surat berdasarkan ID
 Route::get('/surat/{id}/edit', [SuratController::class, 'edit'])->name('surat.edit');
-
-// Route untuk memperbarui data surat berdasarkan ID
 Route::put('/surat/{id}', [SuratController::class, 'update'])->name('surat.update');
-
-// Route untuk menghapus surat berdasarkan ID
 Route::delete('/surat/{id}', [SuratController::class, 'destroy'])->name('surat.destroy');
 
 
-//Pengajuan
-Route::middleware('auth')->group(function () {
+
     Route::get('/ajukan-surat', [PengajuanController::class, 'create'])->name('pengajuan.create');
     Route::post('/ajukan-surat', [PengajuanController::class, 'store'])->name('pengajuan.store');
-});
-Route::get('/get-form-surat/{id}', [PengajuanController::class, 'getFormSurat']);
-Route::get('/riwayat', [PengajuanController::class, 'riwayat'])->middleware('auth')->name('pengajuan.riwayat');
+    Route::get('/riwayat', [PengajuanController::class, 'riwayat'])->name('pengajuan.riwayat');
 
-//Dokumen
-Route::middleware(['auth'])->group(function () {
+    Route::get('/biodata', [BiodataController::class,'index'])->name('biodata.index');
+    Route::post('/biodata-update',[BiodataController::class,'update'])->name('biodata.update');
+
+    Route::get('/profile', [UserController::class,'profile'])->name('profile.index');
+    Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
+Route::put('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
+
+});
+
+// Digunakan untuk menampilkan form dinamis berdasarkan jenis surat
+Route::get('/get-form-surat/{id}', [PengajuanController::class, 'getFormSurat']);
+Route::get('/get-dokumen/{id}', [PengajuanController::class, 'getDokumen']);
+
+
+// --------------------------------------
+// Dokumen
+// --------------------------------------
+Route::middleware('auth')->group(function () {
     Route::get('/dokumen', [DokumenController::class, 'index'])->name('dokumen.index');
     Route::get('/dokumen/create', [DokumenController::class, 'create'])->name('dokumen.create');
     Route::post('/dokumen', [DokumenController::class, 'store'])->name('dokumen.store');
@@ -104,15 +104,17 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/dokumen/{id}', [DokumenController::class, 'destroy'])->name('dokumen.destroy');
 });
 
-//pengajuan surat admin
+// --------------------------------------
+// Pengajuan Surat (Admin)
+// --------------------------------------
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/pengajuan-surat', [\App\Http\Controllers\Admin\PengajuanSuratController::class, 'index'])->name('admin.pengajuan.index');
     Route::get('/pengajuan-surat/{id}', [\App\Http\Controllers\Admin\PengajuanSuratController::class, 'show'])->name('admin.pengajuan.show');
     Route::post('/pengajuan-surat/{id}/verifikasi', [\App\Http\Controllers\Admin\PengajuanSuratController::class, 'verifikasi'])->name('admin.pengajuan.verifikasi');
 });
+Route::get('/pengajuan-surat/kadsek', [\App\Http\Controllers\Admin\PengajuanSuratController::class, 'indexkadsek'])->name('admin.pengajuan.kadsek');
 
-//Lampiran
+// --------------------------------------
+// Lampiran
+// --------------------------------------
 Route::post('/lampiran/{pengajuanId}', [LampiranController::class, 'store'])->name('lampiran.store');
-
-
-

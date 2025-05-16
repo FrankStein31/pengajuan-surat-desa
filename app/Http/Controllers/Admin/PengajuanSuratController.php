@@ -14,6 +14,13 @@ class PengajuanSuratController extends Controller
         return view('admin.pengajuan.index', compact('pengajuans'));
     }
 
+    public function indexkadsek()
+    {
+        $pengajuans = Pengajuan::with(['user', 'surat'])->where('status', 'diproses')->latest()->get();
+
+        return view('admin.pengajuan.index', compact('pengajuans'));
+    }
+
     public function show($id)
     {
         $pengajuan = Pengajuan::with(['user', 'surat', 'lampiran'])->findOrFail($id);
