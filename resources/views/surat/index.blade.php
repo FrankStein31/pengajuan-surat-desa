@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
-@section('title', 'Pelayanan Pengajuan Persuratan Desa Maduretno')
+@section('title', 'Jenis Surat')
 
 @section('content')
     <div class="page-inner">
         <div class="page-header">
-            <h3 class="fw-bold mb-3">DataTables.Net</h3>
+            <h3 class="fw-bold mb-3">Jenis Surat</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                     <a href="#">
@@ -16,13 +16,7 @@
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Tables</a>
-                </li>
-                <li class="separator">
-                    <i class="icon-arrow-right"></i>
-                </li>
-                <li class="nav-item">
-                    <a href="#">Datatables</a>
+                    <a href="#">Jenis Surat</a>
                 </li>
             </ul>
         </div>

@@ -53,4 +53,6 @@ class LoginController extends Controller
 
         return '/dashboard'; // Default redirect
     }
+
+    
 }

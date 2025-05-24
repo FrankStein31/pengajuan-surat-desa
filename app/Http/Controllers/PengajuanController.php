@@ -28,6 +28,8 @@ class PengajuanController extends Controller
 }
 
 
+
+
     public function store(Request $request)
 {
     $request->validate([
@@ -113,9 +115,17 @@ class PengajuanController extends Controller
 
     public function riwayat()
     {
-        // $pengajuans = Pengajuan::where('user_id', auth()->id())->with('dokumen')->latest()->get();
-        $pengajuans = Pengajuan::with(['surat', 'lampiran'])->where('user_id', auth()->id())->latest()->get();
+
+        $pengajuans = Pengajuan::with(['surat', 'lampiran'])->where('status', 'selesai')->where('user_id', auth()->id())->latest()->get();
         return view('pengajuan.riwayat', compact('pengajuans'));
+    }
+    public function pengajuan_terkirim()
+    {
+        //jangan tampilkan yang statusnya selesai
+
+
+        $pengajuans = Pengajuan::with(['surat', 'lampiran'])->where('status', '!=', 'selesai')->where('user_id', auth()->id())->latest()->get();
+        return view('pengajuan.pengajuan-terkirim', compact('pengajuans'));
     }
 
 }

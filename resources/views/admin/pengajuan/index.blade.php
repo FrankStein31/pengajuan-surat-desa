@@ -3,10 +3,10 @@
 @section('content')
     <div class="page-inner">
         <div class="page-header">
-            <h3 class="fw-bold mb-3">DataTables.Net</h3>
+            <h3 class="fw-bold mb-3">Data Pengajuan Surat</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
-                    <a href="#">
+                    <a href="">
                         <i class="icon-home"></i>
                     </a>
                 </li>
@@ -14,13 +14,7 @@
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Tables</a>
-                </li>
-                <li class="separator">
-                    <i class="icon-arrow-right"></i>
-                </li>
-                <li class="nav-item">
-                    <a href="#">Datatables</a>
+                    <a href="">Pengajuan Surat Masuk</a>
                 </li>
             </ul>
         </div>
@@ -59,7 +53,7 @@
                                         <td>{{ $p->user->name }}</td>
                                         <td>{{ $p->created_at->format('d-m-Y') }}</td>
                                         <td>{{ $p->surat->jenis_surat ?? '-' }}</td>
-                                        <td> 
+                                        <td>
                                             @if($p->status == 'selesai')
                                                 <span class="badge badge-success">Selesai</span>
                                             @elseif($p->status == 'diproses')

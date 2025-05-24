@@ -6,7 +6,7 @@
 
 <div class="page-inner">
     <div class="page-header">
-      <h3 class="fw-bold mb-3">Forms</h3>
+      <h3 class="fw-bold mb-3">Edit Dokumen</h3>
       <ul class="breadcrumbs mb-3">
         <li class="nav-home">
           <a href="#">
@@ -17,13 +17,13 @@
           <i class="icon-arrow-right"></i>
         </li>
         <li class="nav-item">
-          <a href="#">Forms</a>
+          <a href="#">Dokumen Pengajuan</a>
         </li>
         <li class="separator">
           <i class="icon-arrow-right"></i>
         </li>
         <li class="nav-item">
-          <a href="#">Basic Form</a>
+          <a href="#">Edit Dokumen</a>
         </li>
       </ul>
     </div>
@@ -70,7 +70,7 @@
                   },
               },
           }).then(() => {
-              this.submit(); 
+              this.submit();
           });
       });
 

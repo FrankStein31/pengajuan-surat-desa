@@ -19,9 +19,16 @@ class MasyarakatProfile extends Model
         'nik',
         'sekolah',
         'semester',
+        'status_perkawinan',
+        'pendidikan',
+        'pekerjaan',
+        'kewarganegaraan',
+        'agama',
         'nim',
         'umur',
         'nis',
+        'alamat',
+        'no_hp',
     ];
 
     public function user()

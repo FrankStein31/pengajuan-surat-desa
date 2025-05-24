@@ -64,57 +64,65 @@ class SuratController extends Controller
 
     public function cetak($id)
 {
+    error_reporting(0);
 
-    $pengajuan = Pengajuan::where('id', $id)
-        ->where('status', 'selesai')
-        ->firstOrFail();
+    try {
+        // Ambil data pengajuan yang sudah selesai
+        $pengajuan = Pengajuan::where('id', $id)
+            ->where('status', 'selesai')
+            ->firstOrFail();
+
+        // Ambil data user yang login
         $user = Auth::user();
-    $masyarakat = MasyarakatProfile::where('user_id', $pengajuan->user_id)->first();
-    $orangtua = OrangtuaProfile::where('masyarakat_user_id', $pengajuan->user_id)->first();
 
-    // Pilih view berdasarkan jenis_surat_id
-    switch ($pengajuan->jenis_surat_id) {
-        case 179: // Surat Kelahiran
-            $view = 'surat.kelahiran';
-            break;
-        case 178: // SKTM Kuliah
-            $view = 'surat.penghasilan';
-            break;
-        case 177: // SKTM Sekolah (anggap = penghasilan orang tua?)
-            $view = 'surat.penghasilan';
-            break;
-        default:
-            abort(404, 'Jenis surat tidak dikenali');
+        $masyarakat = MasyarakatProfile::where('user_id', $pengajuan->user_id)->first();
+        $orangtua = OrangtuaProfile::where('masyarakat_user_id', $pengajuan->user_id)->first();
+
+        switch ($pengajuan->jenis_surat_id) {
+            case 179: // Surat Kelahiran
+                $view = 'surat.domisili';
+                $namaFile = 'surat-domisili-' . $pengajuan->id . '.pdf';
+                break;
+            case 178: // SKTM Kuliah
+                $view = 'surat.sktm_kuliah';
+                $namaFile = 'sktm-kuliah-' . $pengajuan->id . '.pdf';
+                break;
+            case 177: // SKTM Sekolah
+                $view = 'surat.penghasilan';
+                $namaFile = 'sktm-sekolah-' . $pengajuan->id . '.pdf';
+                break;
+            default:
+                return redirect()->back()->with('error', 'Jenis surat tidak dikenali');
+        }
+
+        // Pastikan direktori temp ada
+        $tempDir = storage_path('app/public/temp');
+        if (!file_exists($tempDir)) {
+            mkdir($tempDir, 0755, true);
+        }
+
+        // Load view ke PDF menggunakan Pdf facade yang benar
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView($view, [
+            'pengajuan' => $pengajuan,
+            'masyarakat' => $masyarakat,
+            'orangtua' => $orangtua,
+            'user' => $user,
+        ]);
+
+        // Set ukuran kertas
+        $pdf->setPaper('A4', 'portrait');
+
+        // Coba output langsung tanpa menyimpan terlebih dahulu
+        return $pdf->stream($namaFile);
+
+    } catch (\Exception $e) {
+        // Log error untuk debugging
+        \Log::error('Error cetak PDF: ' . $e->getMessage());
+
+        // Tangani kesalahan dan berikan pesan yang jelas
+        return redirect()->back()->with('error', 'Terjadi kesalahan saat mencetak surat: ' . $e->getMessage());
     }
-    $sessionKey = 'unduhan_pengajuan_' . $pengajuan->id;
-    $jumlahUnduhan = session($sessionKey, 0) + 1;
-    session([$sessionKey => $jumlahUnduhan]);
-
-    // Format nama file
-    $filename = 'surat-' . $pengajuan->id;
-    if ($jumlahUnduhan > 1) {
-        $filename .= '-' . str_pad($jumlahUnduhan, 2, '0', STR_PAD_LEFT);
-    }
-    $filename .= '.pdf';
-
-    $pdf = Pdf::loadView($view, [
-        'pengajuan' => $pengajuan,
-        'masyarakat' => $masyarakat,
-        'orangtua' => $orangtua,
-        'user' => $user,
-    ]);
-    $pdf->setPaper('A4', 'portrait');
-
-    // return $pdf->download($filename);
-    return response()->streamDownload(function () use ($pdf) {
-        echo $pdf->output();
-    }, $filename, [
-        'Content-Type' => 'application/pdf',
-        'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
-        'Pragma' => 'no-cache',
-        'Expires' => '0',
-    ]); // Untuk menampilkan di browser
-
 }
 
     public function update(Request $request, $id)

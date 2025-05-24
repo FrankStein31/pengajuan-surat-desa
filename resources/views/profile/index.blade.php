@@ -12,9 +12,7 @@
                 <a href="#"><i class="icon-home"></i></a>
             </li>
             <li class="separator"><i class="icon-arrow-right"></i></li>
-            <li class="nav-item"><a href="#">Profil</a></li>
-            <li class="separator"><i class="icon-arrow-right"></i></li>
-            <li class="nav-item"><a href="#">Edit</a></li>
+            <li class="nav-item"><a href="#">Edit Profil</a></li>
         </ul>
     </div>
 
@@ -56,12 +54,12 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        
+
                         <div class="form-group mb-2">
                             <label>Konfirmasi Password Baru</label>
                             <input type="password" name="password_confirmation" class="form-control">
                         </div>
-                        
+
                     </div>
 
                 </div>
@@ -78,7 +76,7 @@
     $("#form-simpan").on("submit", function (e) {
         e.preventDefault();
         let form = $(this);
-// buatkan 
+// buatkan
         $.ajax({
             url: form.attr("action"),
             type: "POST",

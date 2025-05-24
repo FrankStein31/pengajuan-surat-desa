@@ -13,80 +13,6 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-6 ">
-                <div class="card card-stats card-round">
-                    <div class="card-body">
-                        <div class="card-title">Status Pengajuan</div>
-                        <div class="card-category">Progres pengajuan surat</div>
-                        <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
-                            <div class="px-2 pb-2 pb-md-0 text-center">
-                                <div id="circle-pending"></div>
-                                <h6 class="fw-bold mt-3 mb-0">Pending</h6>
-                            </div>
-                            <div class="px-2 pb-2 pb-md-0 text-center">
-                                <div id="circle-proses"></div>
-                                <h6 class="fw-bold mt-3 mb-0">Proses</h6>
-                            </div>
-                            <div class="px-2 pb-2 pb-md-0 text-center">
-                                <div id="circle-selesai"></div>
-                                <h6 class="fw-bold mt-3 mb-0">Selesai</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-sm-6 ">
-                <div class="card card-stats card-round">
-                    <div class="card-header">
-                        <div class="card-head-row card-tools-still-right">
-                          <div class="card-title">Pengajuan Masuk</div>
-
-                        </div>
-                      </div>
-                      <div class="card-body p-0">
-                        <div class="table-responsive">
-                          <!-- Projects table -->
-                          <table class="table align-items-center mb-0">
-                            <thead class="thead-light">
-                              <tr>
-                                <th scope="col">Pemohon</th>
-                                <th scope="col" class="text-end">Jenis Surat</th>
-                                <th scope="col" class="text-end">Tanggal</th>
-                                <th scope="col" class="text-end">Status</th>
-
-                              </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($pengajuans as $p)
-                                    <tr>
-                                        <td>{{ $p->user->name }}</td>
-                                        <td>{{ $p->surat->jenis_surat ?? '-' }}</td>
-                                        <td>{{ $p->created_at->format('d-m-Y') }}</td>
-                                        <td>
-                                            @if($p->status == 'selesai')
-                                                <span class="badge badge-success">Selesai</span>
-                                            @elseif($p->status == 'diproses')
-                                                <span class="badge badge-primary">Proses</span>
-
-                                            @elseif($p->status == 'ditolak')
-                                                <span class="badge badge-danger">Ditolak</span>
-                                            @elseif($p->status == 'pending')
-                                                <span class="badge badge-warning">Pending</span>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row">
             <div class="col-sm-6 col-md-4">
                 <div class="card card-stats card-round">
                     <div class="card-body">
@@ -233,7 +159,7 @@
                 </div>
             </div>
         </div>
-        
+
 </div>
 @push('js');
 <!-- Script Circles.js -->

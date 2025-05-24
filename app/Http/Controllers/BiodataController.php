@@ -74,9 +74,16 @@ class BiodataController extends Controller
             'nik' => $request->nik,
             'sekolah' => $request->sekolah,
             'semester' => $request->semester,
+            'status_perkawinan' => $request->status_perkawinan_m,
+            'pendidikan' => $request->pendidikan_m,
+            'pekerjaan' => $request->pekerjaan_m,
+            'kewarganegaraan' => $request->kewarganegaraan_m,
+            'agama' => $request->agama_m,
             'nim' => $request->nim,
             'umur' => $request->umur,
             'nis' => $request->nis,
+            'alamat' => $request->alamat_m,
+            'no_hp' => $request->no_hp,
         ]
     );
 

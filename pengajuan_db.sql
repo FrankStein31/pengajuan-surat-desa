@@ -1,5 +1,5 @@
 /*
-SQLyog Community
+SQLyog Enterprise v13.1.1 (64 bit)
 MySQL - 8.0.30 : Database - pengajuan_db
 *********************************************************************
 */
@@ -9,20 +9,25 @@ MySQL - 8.0.30 : Database - pengajuan_db
 /*!40101 SET SQL_MODE=''*/;
 
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`pengajuan_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+USE `pengajuan_db`;
+
 /*Table structure for table `dokumen` */
 
 DROP TABLE IF EXISTS `dokumen`;
 
 CREATE TABLE `dokumen` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `nama_dokumen` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_dokumen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `dokumen_nama_dokumen_unique` (`nama_dokumen`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `dokumen` */
 
@@ -30,9 +35,7 @@ insert  into `dokumen`(`id`,`nama_dokumen`,`created_at`,`updated_at`) values
 (2,'Fotocopy KK','2025-03-20 18:21:47','2025-03-20 18:21:47'),
 (3,'Fotocopy Akta Kelahiran','2025-03-20 18:22:01','2025-03-20 18:22:01'),
 (4,'Surat Pengantar RT/RW','2025-03-20 18:22:18','2025-03-20 18:22:18'),
-(6,'Fotocopy KTP','2025-05-03 18:05:17','2025-05-03 18:05:17'),
-(12,'pp','2025-05-03 18:26:06','2025-05-03 18:28:42'),
-(13,'vv','2025-05-03 18:27:16','2025-05-03 18:27:16');
+(6,'Fotocopy KTP','2025-05-03 18:05:17','2025-05-03 18:05:17');
 
 /*Table structure for table `dokumens` */
 
@@ -40,9 +43,9 @@ DROP TABLE IF EXISTS `dokumens`;
 
 CREATE TABLE `dokumens` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `nama_dokumen` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nama_dokumen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pengajuan_id` bigint unsigned DEFAULT NULL,
-  `nama_file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nama_file` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `syarat_id` bigint unsigned DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -91,11 +94,7 @@ insert  into `jenis_surat_dokumen`(`id`,`jenis_surat_id`,`dokumen_id`) values
 (47,182,2),
 (48,182,4),
 (50,183,2),
-(51,183,4),
-(63,190,2),
-(64,190,3),
-(65,190,4),
-(66,191,2);
+(51,183,4);
 
 /*Table structure for table `lampiran` */
 
@@ -104,14 +103,14 @@ DROP TABLE IF EXISTS `lampiran`;
 CREATE TABLE `lampiran` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `pengajuan_id` bigint unsigned NOT NULL,
-  `nama_lampiran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `file` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_lampiran` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `lampiran_pengajuan_id_foreign` (`pengajuan_id`),
   CONSTRAINT `lampiran_pengajuan_id_foreign` FOREIGN KEY (`pengajuan_id`) REFERENCES `pengajuans` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `lampiran` */
 
@@ -125,12 +124,7 @@ insert  into `lampiran`(`id`,`pengajuan_id`,`nama_lampiran`,`file`,`created_at`,
 (7,13,'1336-1439-2-PB.pdf','lampiran/qKXXHgQZb2J6NUehjyUr1T3gXBuatCoWh8l7y4a0.pdf','2025-04-16 21:21:20','2025-04-16 21:21:20'),
 (8,14,'yayaaziz,+12.+Siti+Marfu’ah,+Ana+Kumalasari,+Ida+swasanti.pdf','lampiran/R8DodZXSiexhNkgiQS6ZVZPNSOmpwN0MEqQd5Faa.pdf','2025-04-17 03:24:09','2025-04-17 03:24:09'),
 (10,24,'24880-91793-2-PB.pdf','lampiran/pengajuan_24public/zldBAJRXsGD3Hbdlc9SqBALQadywkP3CVdUuZpf7.pdf','2025-05-02 16:09:58','2025-05-02 16:09:58'),
-(11,24,'Jurnal+Silviany+Nante.pdf','lampiran/pengajuan_24public/MXpZYAzZ0y9tX0GWsNB0q8AY4kD5cqa1uVKmxXhw.pdf','2025-05-02 16:09:58','2025-05-02 16:09:58'),
-(12,25,'Gambar WhatsApp 2025-04-27 pukul 16.42.55_d92f54cb.jpg','lampiran/pengajuan_25public/oDweN2uZCfnA9ZzRsmr7PK585vh7gsgVzymomt4P.jpg','2025-05-03 14:48:16','2025-05-03 14:48:16'),
-(13,25,'Gambar WhatsApp 2025-04-27 pukul 16.42.55_d92f54cb.jpg','lampiran/pengajuan_25public/1D5Cv9FaOwFTgw4q0FW0a9R5xO9ZUQoheGxEBkjt.jpg','2025-05-03 14:48:16','2025-05-03 14:48:16'),
-(14,25,'Gambar WhatsApp 2025-04-27 pukul 16.42.55_d92f54cb.jpg','lampiran/pengajuan_25public/rEcKGu4qtWCWUZYYh8nvarB4rz3J7Bz5S3zyd09B.jpg','2025-05-03 14:48:16','2025-05-03 14:48:16'),
-(15,26,'20_Rizky+Wahyudi.pdf','lampiran/pengajuan_26public/OJDxC5lB2YEywVOv0JGt6zYJejvaFzQ4ZHXa9M4z.pdf','2025-05-03 15:40:25','2025-05-03 15:40:25'),
-(16,26,'Jurnal+Silviany+Nante.pdf','lampiran/pengajuan_26public/RFdrXNcBXjJRtx32RuQHRSBGcZI2lYLLagcy5MNM.pdf','2025-05-03 15:40:25','2025-05-03 15:40:25');
+(11,24,'Jurnal+Silviany+Nante.pdf','lampiran/pengajuan_24public/MXpZYAzZ0y9tX0GWsNB0q8AY4kD5cqa1uVKmxXhw.pdf','2025-05-02 16:09:58','2025-05-02 16:09:58');
 
 /*Table structure for table `masyarakat_profiles` */
 
@@ -145,18 +139,26 @@ CREATE TABLE `masyarakat_profiles` (
   `nik` varchar(20) DEFAULT NULL,
   `sekolah` varchar(100) DEFAULT NULL,
   `semester` varchar(10) DEFAULT NULL,
+  `status_perkawinan` varchar(50) DEFAULT NULL,
+  `pendidikan` varchar(100) DEFAULT NULL,
+  `pekerjaan` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `kewarganegaraan` varchar(100) DEFAULT NULL,
+  `agama` varchar(100) DEFAULT NULL,
   `nim` varchar(50) DEFAULT NULL,
   `umur` int DEFAULT NULL,
   `nis` varchar(30) DEFAULT NULL,
+  `alamat` text,
+  `no_hp` varchar(20) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `masyarakat_profiles` */
 
-insert  into `masyarakat_profiles`(`id`,`user_id`,`jenis_kelamin`,`tempat_lahir`,`tanggal_lahir`,`nik`,`sekolah`,`semester`,`nim`,`umur`,`nis`,`created_at`,`updated_at`) values 
-(1,10,'P','Pasuruan','2002-03-16','123456789','SMAN 1 Kandat','4','123456789',23,'234568','2025-05-02 14:11:21','2025-05-02 14:56:55');
+insert  into `masyarakat_profiles`(`id`,`user_id`,`jenis_kelamin`,`tempat_lahir`,`tanggal_lahir`,`nik`,`sekolah`,`semester`,`status_perkawinan`,`pendidikan`,`pekerjaan`,`kewarganegaraan`,`agama`,`nim`,`umur`,`nis`,`alamat`,`no_hp`,`created_at`,`updated_at`) values 
+(1,10,'P','Pasuruan','2002-03-16','123456789','SMAN 1 Kandat','4','Lajang','SLTA/Sederajat','Pelajar/Mahasiswa','Indonesia','Islam','123456789',23,'234568','Kediri','6289612684096','2025-05-02 14:11:21','2025-05-23 20:52:10'),
+(2,19,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2025-05-23 19:15:44','2025-05-23 19:15:44');
 
 /*Table structure for table `migrations` */
 
@@ -164,7 +166,7 @@ DROP TABLE IF EXISTS `migrations`;
 
 CREATE TABLE `migrations` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -211,20 +213,21 @@ CREATE TABLE `orangtua_profiles` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `orangtua_profiles` */
 
 insert  into `orangtua_profiles`(`id`,`masyarakat_user_id`,`nama`,`jenis_kelamin`,`tempat_lahir`,`tanggal_lahir`,`kewarganegaraan`,`agama`,`status_perkawinan`,`pekerjaan`,`nomor_ktp`,`alamat`,`pendidikan`,`penghasilan`,`created_at`,`updated_at`) values 
-(1,10,'asdfgh','P','sdfgh','1998-06-09','Indonesia','Kristen Protestan','Menikah','fghj','123456789','Kras','Diploma IV',8000000.00,'2025-05-02 14:16:02','2025-05-02 14:56:55');
+(1,10,'asdfgh','P','sdfgh','1998-06-09','Indonesia','Kristen Protestan','Menikah','Pensiunan','123456789','Kras','Diploma IV',8000000.00,'2025-05-02 14:16:02','2025-05-18 10:25:30'),
+(2,19,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2025-05-23 19:15:44','2025-05-23 19:15:44');
 
 /*Table structure for table `password_reset_tokens` */
 
 DROP TABLE IF EXISTS `password_reset_tokens`;
 
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -239,15 +242,15 @@ CREATE TABLE `pengajuans` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned NOT NULL,
   `jenis_surat_id` bigint unsigned DEFAULT NULL,
-  `keperluan` text COLLATE utf8mb4_unicode_ci,
-  `keterangan` text COLLATE utf8mb4_unicode_ci,
-  `status` enum('pending','diproses','selesai','ditolak') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `keperluan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `keterangan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `status` enum('pending','diproses','selesai','ditolak') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `pengajuans_user_id_foreign` (`user_id`),
   CONSTRAINT `pengajuans_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `pengajuans` */
 
@@ -255,18 +258,16 @@ insert  into `pengajuans`(`id`,`user_id`,`jenis_surat_id`,`keperluan`,`keteranga
 (11,13,177,NULL,NULL,'ditolak','2025-04-12 08:06:08','2025-04-16 21:15:44'),
 (12,13,182,NULL,NULL,'diproses','2025-04-16 17:41:49','2025-04-16 20:10:00'),
 (13,13,177,NULL,NULL,'pending','2025-04-16 21:21:19','2025-04-16 21:21:19'),
-(14,13,182,NULL,NULL,'diproses','2025-04-17 03:24:09','2025-04-17 03:25:29'),
-(16,14,177,NULL,NULL,'diproses','2025-04-17 07:20:11','2025-04-17 07:26:39'),
+(14,13,182,NULL,NULL,'selesai','2025-04-17 03:24:09','2025-05-22 16:40:27'),
+(16,14,177,NULL,NULL,'selesai','2025-04-17 07:20:11','2025-05-21 07:25:58'),
 (17,14,182,NULL,NULL,'pending','2025-04-17 07:24:11','2025-04-17 07:24:11'),
-(18,10,177,NULL,NULL,'diproses','2025-05-02 15:29:34','2025-05-02 16:34:25'),
-(19,10,179,NULL,NULL,'pending','2025-05-02 15:49:39','2025-05-02 15:49:39'),
-(20,10,179,NULL,NULL,'pending','2025-05-02 15:52:58','2025-05-02 15:52:58'),
-(21,10,179,NULL,NULL,'pending','2025-05-02 15:55:53','2025-05-02 15:55:53'),
+(18,10,177,NULL,NULL,'selesai','2025-05-02 15:29:34','2025-05-21 07:25:11'),
+(19,10,179,NULL,NULL,'ditolak','2025-05-02 15:49:39','2025-05-21 18:49:16'),
+(20,10,179,NULL,NULL,'diproses','2025-05-02 15:52:58','2025-05-21 18:50:41'),
+(21,10,179,NULL,NULL,'selesai','2025-05-02 15:55:53','2025-05-22 16:46:28'),
 (22,10,179,NULL,NULL,'pending','2025-05-02 15:56:42','2025-05-02 15:56:42'),
-(23,10,179,NULL,NULL,'pending','2025-05-02 15:59:26','2025-05-02 15:59:26'),
-(24,10,179,NULL,NULL,'selesai','2025-05-02 16:09:57','2025-05-02 16:34:34'),
-(25,10,178,'qwerty','qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq','selesai','2025-05-03 14:48:16','2025-05-03 14:48:16'),
-(26,10,179,'dhgfh','esrdtfu','selesai','2025-05-03 15:40:25','2025-05-14 13:16:27');
+(23,10,179,NULL,NULL,'selesai','2025-05-02 15:59:26','2025-05-21 18:18:17'),
+(24,10,179,NULL,NULL,'selesai','2025-05-02 16:09:57','2025-05-02 16:34:34');
 
 /*Table structure for table `surat` */
 
@@ -274,8 +275,8 @@ DROP TABLE IF EXISTS `surat`;
 
 CREATE TABLE `surat` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `jenis_surat` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deskripsi_surat` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jenis_surat` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deskripsi_surat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `syarat_id` bigint unsigned DEFAULT NULL,
   `kategori` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -294,9 +295,7 @@ insert  into `surat`(`id`,`jenis_surat`,`deskripsi_surat`,`syarat_id`,`kategori`
 (180,'Surat Pengajuan Permohonan KTP','Surat pengantar pembuatan KTP Elektronik',NULL,'Sekretaris Desa','2025-03-20 19:12:38','2025-03-20 19:12:38'),
 (181,'Surat Perubahan KK','Dokumen tertulis untuk memberitahukan kepada pihak berwenang (Dinas Kependudukan dan Pencatatan Sipil) tentang adanya perubahan data dalam Kartu Keluarga',NULL,'Sekretaris Desa','2025-03-20 19:14:32','2025-03-20 19:14:32'),
 (182,'Surat Pindah Domisili','Surat yang dibuat oleh penduduk yang akan pindah ke tempat tinggal baru.',NULL,'Sekretaris Desa','2025-03-20 19:15:17','2025-03-20 19:15:17'),
-(183,'Surat keterangan kehilangan','-',NULL,'Sekretaris Desa','2025-03-21 04:32:21','2025-03-21 04:32:21'),
-(190,'qwertyu','aaaa',NULL,'Kepala Desa','2025-05-12 05:03:29','2025-05-15 15:23:30'),
-(191,'ss','ss',NULL,'Sekretaris Desa','2025-05-15 15:55:20','2025-05-15 16:00:15');
+(183,'Surat keterangan kehilangan','-',NULL,'Sekretaris Desa','2025-03-21 04:32:21','2025-03-21 04:32:21');
 
 /*Table structure for table `users` */
 
@@ -304,17 +303,17 @@ DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `role` enum('admin','masyarakat','kepala_desa','sekretaris_desa') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'masyarakat',
+  `role` enum('admin','masyarakat','kepala_desa','sekretaris_desa') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'masyarakat',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `users` */
 
@@ -332,5 +331,6 @@ insert  into `users`(`id`,`name`,`email`,`email_verified_at`,`password`,`remembe
 (18,'aaaaaaaaaaa','aaaa@gmail.com',NULL,'$2y$10$52lyyEZAA9WHghGHd6CmH.H1jgsw5jNCjuvr2EfiWnp.O1uwk/Qnm',NULL,'2025-05-15 15:18:18','2025-05-15 15:18:18','masyarakat');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

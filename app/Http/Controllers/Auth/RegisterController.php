@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\MasyarakatProfile;
+use App\Models\OrangTuaProfile;
 
 class RegisterController extends Controller
 {
@@ -73,11 +75,19 @@ class RegisterController extends Controller
             'agree' => 'accepted', // Validasi checkbox
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'masyarakat', // Set role default ke 'masyarakat'
+        ]);
+
+        MasyarakatProfile::create([
+            'user_id' => $user->id,
+        ]);
+
+        OrangTuaProfile::create([
+            'masyarakat_user_id' => $user->id,
         ]);
 
         return redirect()->route('login')->with('success', 'Registration successful. Please login.');

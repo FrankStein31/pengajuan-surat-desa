@@ -77,6 +77,7 @@ Route::delete('/surat/{id}', [SuratController::class, 'destroy'])->name('surat.d
     Route::get('/ajukan-surat', [PengajuanController::class, 'create'])->name('pengajuan.create');
     Route::post('/ajukan-surat', [PengajuanController::class, 'store'])->name('pengajuan.store');
     Route::get('/riwayat', [PengajuanController::class, 'riwayat'])->name('pengajuan.riwayat');
+    Route::get('/pengajuan_terkirim', [PengajuanController::class, 'pengajuan_terkirim'])->name('pengajuan.pengajuan_terkirim');
 
     Route::get('/biodata', [BiodataController::class,'index'])->name('biodata.index');
     Route::post('/biodata-update',[BiodataController::class,'update'])->name('biodata.update');
@@ -111,9 +112,15 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/pengajuan-surat', [\App\Http\Controllers\Admin\PengajuanSuratController::class, 'index'])->name('admin.pengajuan.index');
     Route::get('/pengajuan-surat/{id}', [\App\Http\Controllers\Admin\PengajuanSuratController::class, 'show'])->name('admin.pengajuan.show');
     Route::post('/pengajuan-surat/{id}/verifikasi', [\App\Http\Controllers\Admin\PengajuanSuratController::class, 'verifikasi'])->name('admin.pengajuan.verifikasi');
+    // routes/web.php
+Route::put('/pengajuan/{id}/status', [\App\Http\Controllers\Admin\PengajuanSuratController::class, 'updateStatus'])->name('pengajuan.updateStatus');
+
 });
 Route::get('/pengajuan-surat/kadsek', [\App\Http\Controllers\Admin\PengajuanSuratController::class, 'indexkadsek'])->name('admin.pengajuan.kadsek');
+Route::get('/pengajuan-kadsek/{id}', [\App\Http\Controllers\Admin\PengajuanSuratController::class, 'showkadsek'])->name('admin.pengajuan.showkadsek');
 
+Route::middleware('auth')->group(function () {
+});
 // --------------------------------------
 // Lampiran
 // --------------------------------------

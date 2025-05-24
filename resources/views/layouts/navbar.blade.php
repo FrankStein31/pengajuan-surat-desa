@@ -289,7 +289,7 @@
         >
           <div class="avatar avatar-online">
             <img
-              src="{{ asset('assets/img/profile.jpg') }}"
+              src="{{ asset('assets/img/user.jpg') }}"
               alt="..."
               class="avatar-img rounded-circle"
             />
@@ -305,7 +305,7 @@
               <div class="user-box">
                 <div class="avatar-lg">
                   <img
-                    src="{{ asset('assets/img/profile.jpg') }}"
+                    src="{{ asset('assets/img/user.jpg') }}"
                     alt="image profile"
                     class="avatar-img rounded"
                   />

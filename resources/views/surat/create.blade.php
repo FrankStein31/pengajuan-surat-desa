@@ -1,13 +1,13 @@
 @extends('layouts.master')
 
-@section('title', 'Pelayanan Pengajuan Persuratan Desa Maduretno')
+@section('title', 'Tambah Jenis Surat')
 
 @section('content')
 
 
     <div class="page-inner">
         <div class="page-header">
-            <h3 class="fw-bold mb-3">Forms</h3>
+            <h3 class="fw-bold mb-3">Tambah Jenis Surat</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                     <a href="#">
@@ -18,13 +18,13 @@
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Forms</a>
+                    <a href="#">Jenis Surat</a>
                 </li>
                 <li class="separator">
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Basic Form</a>
+                    <a href="#">Tambah Jenis Surat</a>
                 </li>
             </ul>
         </div>
@@ -32,19 +32,25 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Form Elements</div>
+                        <div class="card-title">Tambah Jenis Surat</div>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <form id="form-simpan" action="{{ route('surat.store') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="kode">Jenis Surat<span class="text-danger">*</span></label>
+                                    <label for="jenis_surat">Jenis Surat<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="jenis_surat" id="jenis_surat">
+                                    @error('jenis_surat')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="nama">Deskripsi Surat<span class="text-danger">*</span></label>
+                                    <label for="deskripsi_surat">Deskripsi Surat<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="deskripsi_surat" id="deskripsi_surat">
+                                    @error('deskripsi_surat')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="kategori">Kategori Surat</label>
@@ -81,18 +87,55 @@
 
 <script>
 
-    $("#form-simpan").on("submit", function (e) {
+$("#form-simpan").on("submit", function (e) {
         e.preventDefault();
-
-        swal("Berhasil!", "Data berhasil disimpan!", {
-            icon: "success",
-            buttons: {
-                confirm: {
-                    className: "btn btn-success",
-                },
+        let form = $(this);
+// buatkan
+        $.ajax({
+            url: form.attr("action"),
+            type: "POST",
+            data: form.serialize(),
+            headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val()
             },
-        }).then(() => {
-            this.submit(); // submit form setelah klik OK
+            success: function (response) {
+                swal("Berhasil!", "Profil berhasil diperbarui.", {
+                    icon: "success",
+                    buttons: {
+                        confirm: {
+                            className: "btn btn-success",
+                        },
+                    },
+                }).then(() => {
+                    window.location.reload(); // atau redirect ke halaman profil
+                });
+            },
+            error: function (xhr) {
+                if (xhr.status === 422) {
+                    let errors = xhr.responseJSON.errors;
+                    let message = "";
+                    $.each(errors, function (key, value) {
+                        message += value[0] + "\n";
+                    });
+                    swal("Gagal!", message, {
+                        icon: "error",
+                        buttons: {
+                            confirm: {
+                                className: "btn btn-danger",
+                            },
+                        },
+                    });
+                } else {
+                    swal("Terjadi kesalahan!", "Silakan coba lagi nanti.", {
+                        icon: "error",
+                        buttons: {
+                            confirm: {
+                                className: "btn btn-danger",
+                            },
+                        },
+                    });
+                }
+            }
         });
     });
 

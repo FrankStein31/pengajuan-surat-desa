@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Desa Maduretno - Portal Layanan Pengajuan Surat</title>
+    <link rel="icon" href="{{ asset('assets/img/kaiadmin/logo-provinsi-jawa-timur.ico') }}" type="image/x-icon" />
     <style>
         :root {
             --primary-color: #2c355f;
@@ -424,12 +425,12 @@
                     <span>Desa Maduretno</span>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="#beranda">Beranda</a></li>
+                    <li><a href="#beranda" class="center">Beranda</a></li>
                     <li><a href="#tentang">Tentang Kami</a></li>
                     <li><a href="#layanan">Layanan</a></li>
                     <li><a href="#statistik">Statistik</a></li>
                     <li><a href="#kontak">Kontak</a></li>
-                    <li><a href="/login" class="btn">Masuk</a></li>
+                    <li><a href="/login" >Masuk</a></li>
                 </ul>
             </nav>
         </div>
@@ -572,7 +573,7 @@
                 <div class="testimonial">
                     <p>"Layanan pengajuan surat online ini sangat membantu saya yang sibuk bekerja. Tidak perlu lagi meluangkan waktu khusus ke kantor desa. Prosesnya cepat dan mudah!"</p>
                     <div class="testimonial-author">Ahmad Supriyadi</div>
-                    <div class="testimonial-role">Warga Dusun Makmur</div>
+                    <div class="testimonial-role">Warga Desa Maduretno</div>
                 </div>
             </div>
         </div>

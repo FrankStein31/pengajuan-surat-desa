@@ -1,10 +1,10 @@
 @extends('layouts.master')
-@section('title', 'Riwayat Pengajuan Surat')
+@section('title', 'Pengajuan Surat Terkirim')
 
 @section('content')
 <div class="page-inner">
     <div class="page-header">
-        <h3 class="fw-bold mb-3">Daftar Riwayat Pengajuan Surat </h3>
+        <h3 class="fw-bold mb-3">Daftar Pengajuan Surat Terkirim</h3>
         <ul class="breadcrumbs mb-3">
             <li class="nav-home">
                 <a href="#">
@@ -15,7 +15,7 @@
                 <i class="icon-arrow-right"></i>
             </li>
             <li class="nav-item">
-                <a href="#">Riwayat Pengajuan Surat</a>
+                <a href="#">Pengajuan Surat Terkirim</a>
             </li>
         </ul>
     </div>
@@ -24,7 +24,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex align-items-center">
-                        <h4 class="card-title">Daftar Riwayat Pengajuan Surat</h4>
+                        <h4 class="card-title">Daftar Pengajuan Surat Terkirim</h4>
 
                     </div>
                 </div>

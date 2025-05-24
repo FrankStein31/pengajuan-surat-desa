@@ -4,8 +4,8 @@
                     <!-- Logo Header -->
                     <div class="logo-header" data-background-color="dark">
                         <a href="index.html" class="logo">
-                            {{-- <img src="{{ asset('assets/img/kaiadmin/logo_light.svg') }}" alt="navbar brand"
-                                class="navbar-brand" height="20" /> --}}
+                            <img src="{{ asset('assets/img/logojatimm.png') }}" alt="navbar brand"
+                                class="navbar-brand" height="40" />
                         </a>
                         <button class="topbar-toggler more">
                             <i class="gg-more-vertical-alt"></i>
@@ -32,7 +32,7 @@
                             <li class="nav-item {{ Request::is('admin/pengajuan-surat') ? 'active' : '' }}">
                                 <a href="/admin/pengajuan-surat">
                                     <i class="fas fa-file-alt"></i>
-                                    <p>Data Pengajuan Surat</p>
+                                    <p>Pengajuan Surat Masuk</p>
                                 </a>
 
                             </li>
@@ -76,8 +76,8 @@
                     <!-- Logo Header -->
                     <div class="logo-header" data-background-color="dark">
                         <a href="index.html" class="logo">
-                            {{-- <img src="{{ asset('assets/img/kaiadmin/logo_light.svg') }}" alt="navbar brand"
-                                class="navbar-brand" height="20" /> --}}
+                            <img src="{{ asset('assets/img/logojatimm.png') }}" alt="navbar brand"
+                                class="navbar-brand" height="40" />
                         </a>
                         <button class="topbar-toggler more">
                             <i class="gg-more-vertical-alt"></i>
@@ -103,7 +103,7 @@
                             <li class="nav-item {{ Request::is('/pengajuan-surat/kadsek') ? 'active' : '' }}">
                                 <a href="/pengajuan-surat/kadsek">
                                     <i class="fas fa-file-alt"></i>
-                                    <p>Data Pengajuan Surat</p>
+                                    <p>Pengajuan Surat Masuk</p>
                                 </a>
                             </li>
                             <li class="nav-item {{ Request::is('tampil-surat') ? 'active' : '' }}">
@@ -131,8 +131,9 @@
                     <!-- Logo Header -->
                     <div class="logo-header" data-background-color="dark">
                         <a href="index.html" class="logo">
-                            {{-- <img src="{{ asset('assets/img/kaiadmin/logo_light.svg') }}" alt="navbar brand"
-                                class="navbar-brand" height="20" /> --}}
+
+                            <img src="{{ asset('assets/img/logojatimm.png') }}" alt="navbar brand"
+                                class="navbar-brand" height="40" />
                         </a>
                         <button class="topbar-toggler more">
                             <i class="gg-more-vertical-alt"></i>
@@ -167,16 +168,22 @@
                                     <p>Jenis Surat</p>
                                 </a>
                             </li>
-                            <li class="nav-item {{ Request::is('riwayat') ? 'active' : '' }}">
-                                <a href="/riwayat">
-                                    <i class="fas fa-file-contract"></i>
-                                    <p>Riwayat Pengajuan Surat</p>
+                            <li class="nav-item {{ Request::is('pengajuan_terkirim') ? 'active' : '' }}">
+                                <a href="/pengajuan_terkirim">
+                                    <i class="fas fa-address-card"></i>
+                                    <p>Pengajuan Terkirim</p>
                                 </a>
                             </li>
                             <li class="nav-item {{ Request::is('biodata') ? 'active' : '' }}">
                                 <a href="/biodata">
                                     <i class="fas fa-address-card"></i>
                                     <p>Biodata</p>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ Request::is('riwayat') ? 'active' : '' }}">
+                                <a href="/riwayat">
+                                    <i class="fas fa-file-contract"></i>
+                                    <p>Riwayat Pengajuan Surat</p>
                                 </a>
                             </li>
                             <li class="nav-item {{ Request::is('profile') ? 'active' : '' }}">

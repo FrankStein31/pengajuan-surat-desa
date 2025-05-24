@@ -85,7 +85,7 @@
         }
 
         table.data td {
-            padding: 5px 0;
+            padding: 0;
             vertical-align: top;
         }
 
@@ -106,6 +106,11 @@
             margin-top: 70px;
             text-decoration: underline;
             font-weight: bold;
+        }
+        .signature-image {
+            width: 100px;
+            height: auto;
+            margin: 0 0 0;
         }
 
         .qr-code {
@@ -133,7 +138,7 @@
 
         <div class="title">
             <h3>SURAT KETERANGAN DOMISILI</h3>
-            <p>Nomor : </p>
+            <p>Nomor : 145/0{{$pengajuan->id}}/418.73.11/2025</p>
         </div>
 
         <div class="content">
@@ -143,53 +148,63 @@
                 <tr>
                     <td width="30%">Nama</td>
                     <td width="5%">:</td>
-                    <td>{{ $user->name ?? '-' }}</td>
+                    <td>{{ $user->name }}</td>
+                </tr>
+                <tr>
+                    <td>Jenis Kelamin</td>
+                    <td>:</td>
+                    <td>{{ $masyarakat->jenis_kelamin }}</td>
                 </tr>
                 <tr>
                     <td>Tempat Tanggal Lahir</td>
                     <td>:</td>
-                    <td>{{ $masyarakat->tempat_lahir }}, {{ \Carbon\Carbon::parse($orangtua->tanggal_lahir)->locale('id')->translatedFormat('d F Y') }}</td>
+                    <td>{{ $masyarakat->tempat_lahir }}, {{ \Carbon\Carbon::parse($masyarakat->tanggal_lahir)->locale('id')->translatedFormat('d F Y') }}</td>
                 </tr>
                 <tr>
                     <td>Kewarganegaraan</td>
                     <td>:</td>
-                    <td>{{ $orangtua->kewarganegaraan }}</td>
+                    <td>{{ $masyarakat->kewarganegaraan }}</td>
                 </tr>
                 <tr>
                     <td>Agama</td>
                     <td>:</td>
-                    <td>{{ $orangtua->agama }}</td>
+                    <td>{{ $masyarakat->agama }}</td>
                 </tr>
                 <tr>
                     <td>Status Perkawinan</td>
                     <td>:</td>
-                    <td>{{ $orangtua->status_perkawinan }}</td>
+                    <td>{{ $masyarakat->status_perkawinan }}</td>
                 </tr>
                 <tr>
                     <td>Pekerjaan</td>
                     <td>:</td>
-                    <td>{{ $orangtua->pekerjaan }}</td>
+                    <td>{{ $masyarakat->pekerjaan }}</td>
+                </tr>
+                <tr>
+                    <td>Pendidikan</td>
+                    <td>:</td>
+                    <td>{{ $masyarakat->pendidikan }}</td>
                 </tr>
                 <tr>
                     <td>Nomor KTP</td>
                     <td>:</td>
-                    <td>{{ $orangtua->nomor_ktp }}</td>
+                    <td>{{ $masyarakat->nik }}</td>
                 </tr>
                 <tr>
                     <td>Alamat</td>
                     <td>:</td>
-                    <td>RT. ... RW. ... Ds. Ngadirejo, Kecamatan Papar, Kabupaten Kediri</td>
+                    <td>{{ $masyarakat->alamat }}</td>
+                </tr>
+                <tr>
+                    <td>Keterangan</td>
+                    <td>:</td>
+                    <td>{{ $pengajuan->keterangan }}</td>
                 </tr>
             </table>
 
             <p>Surat Keterangan ini di pergunakan untuk :</p>
-            <p>{{ $pengajuan->keterangan }}</p>
+            <p>{{ $pengajuan->keperluan }}</p>
 
-            <p>Keterangan Lainnya :</p>
-            <ol>
-                <li>Bahwa yang bersangkutan adalah Penduduk Desa Ngadirejo Kecamatan Papar Kabupaten Kediri.</li>
-                <li>Besar Penghasilan adalah Orang Tua / Wali dari :</li>
-            </ol>
 
             @if($masyarakat)
             <table class="data">
@@ -259,12 +274,13 @@
             </table>
             @endif
 
-            <p style="margin-top: 20px;">Demikian keterangan ini kami buat dengan sebenarnya untuk dipergunakan sebagaimana mestinya.</p>
+            <p style="margin-top: 20px;">Demikian keterangan ini kami buat dengan sebenarnya untuk dipergunakan sebagimana perlunya.</p>
 
             <div class="signature">
-                <p>Maduretno, {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('d F Y') }} </p>
+                <p>Maduretno, {{ \Carbon\Carbon::parse($pengajuan->updated_at)->locale('id')->translatedFormat('d F Y') }} </p>
 
                 <p>Kepala Desa Maduretno</p>
+                <img src="{{ public_path('assets/img/Tanda_tangan_bapak.png') }}" alt="Tanda Tangan" class="signature-image">
                 <div class="signature-name">SISWANTO</div>
             </div>
         </div>
